@@ -1,176 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NEGM SECRET CLUB</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Playfair+Display:wght@500;700&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{
+      --bg-black: #000;
+      --muted: #dcdcdc;
+      --muted-2: #bfbfbf;
+      --accent: rgba(255,255,255,0.06);
     }
 
-    body {
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
       font-family: 'Cutive Mono', monospace;
-      background-color: #000;
-      color: #f5f5f5;
-      overflow-x: hidden;
-      text-align: center;
+      background:var(--bg-black);
+      color:#f5f5f5;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      text-rendering:optimizeLegibility;
     }
 
-    /* Background video styling */
-    .video-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      filter: brightness(55%);
+    /* Video background */
+    .video-bg{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-3;
+      filter:brightness(55%) contrast(105%);
+      transform:scale(1.02);
+      transition:opacity .8s ease;
+      will-change:transform,filter;
     }
 
-    header {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      color: #f0f0f0;
-      text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
-      animation: fadeIn 3s ease-out;
+    /* Animated luxury light overlay (subtle) */
+    .bg-overlay{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background:linear-gradient(120deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 50%, rgba(255,255,255,0.02) 100%);
+      mix-blend-mode:overlay;
+      animation: overlayMove 12s linear infinite;
+      opacity:1;
     }
 
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 4rem;
-      margin-bottom: 1rem;
+    @keyframes overlayMove{
+      0%{transform:translateX(-20%) translateY(-10%) scale(1)}
+      50%{transform:translateX(20%) translateY(10%) scale(1.02)}
+      100%{transform:translateX(-20%) translateY(-10%) scale(1)}
     }
 
-    header p {
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-      color: #ddd;
+    /* Soft vignette for depth */
+    .vignette{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.45) 80%, rgba(0,0,0,0.85) 100%);
+      pointer-events:none;
     }
 
-    .rules {
-      background: rgba(0, 0, 0, 0.95);
-      padding: 5rem 2rem;
-      max-width: 800px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-      line-height: 1.8;
-      border-top: 1px solid #222;
-      border-bottom: 1px solid #222;
+    /* Page container */
+    .wrap{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:48px 24px;
     }
 
-    .rules h2 {
-      font-family: 'Playfair Display', serif;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      font-size: 2rem;
-      letter-spacing: 2px;
-      color: #f5f5f5;
+    header{
+      width:100%;
+      max-width:1100px;
+      margin:0 auto;
+      padding: 32px 8px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      align-items:center;
+      justify-content:center;
+      min-height:70vh;
     }
 
-    .rules p {
-      color: #e0e0e0;
+    .hero-title{
+      font-family:'Playfair Display', serif;
+      font-size:4.2rem;
+      letter-spacing:6px;
+      text-transform:uppercase;
+      margin:0;
+      line-height:1;
+      color:#f8f8f8;
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .7s cubic-bezier(.2,.9,.22,1), transform .7s cubic-bezier(.2,.9,.22,1);
+      text-shadow: 0 6px 26px rgba(0,0,0,0.6);
     }
 
-    .apply {
-      margin: 3rem 0 5rem 0;
+    .hero-sub{
+      max-width:880px;
+      font-size:1.15rem;
+      color:var(--muted);
+      margin:0;
+      opacity:0;
+      transform:translateY(14px);
+      transition:opacity .8s cubic-bezier(.2,.9,.22,1) .06s, transform .8s cubic-bezier(.2,.9,.22,1) .06s;
+      letter-spacing:1px;
     }
 
-    .apply a {
-      text-decoration: none;
+    /* Rules section */
+    .rules{
+      width:100%;
+      max-width:900px;
+      margin:48px auto;
+      padding:48px 38px;
+      background: rgba(0,0,0,0.60);
+      border-top:1px solid rgba(255,255,255,0.04);
+      border-bottom:1px solid rgba(255,255,255,0.04);
+      color:var(--muted-2);
+      font-size:1.05rem;
+      line-height:1.8;
+      transform:translateY(24px);
+      opacity:0;
+      transition:opacity .8s ease, transform .8s ease;
+      border-radius:6px;
+      backdrop-filter: blur(4px) saturate(120%);
     }
 
-    .apply button {
-      background: none;
-      border: 1px solid #f5f5f5;
-      color: #f5f5f5;
-      padding: 1rem 2.5rem;
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: all 0.4s ease;
-      border-radius: 40px;
+    .rules h2{
+      font-family:'Playfair Display', serif;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      margin:0 0 12px 0;
+      color:#f5f5f5;
+      font-size:1.8rem;
     }
 
-    .apply button:hover {
-      background-color: #f5f5f5;
+    .rules p{ margin:0; color:var(--muted-2); }
+
+    /* Buttons container */
+    .buttons{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      align-items:center;
+      margin-top:30px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,0.12);
+      background:transparent;
+      color:#f6f6f6;
+      padding:12px 26px;
+      border-radius:999px;
+      font-family:'Playfair Display', serif;
+      text-transform:uppercase;
+      letter-spacing:1.8px;
+      cursor:pointer;
+      font-size:0.95rem;
+      opacity:0;
+      transform:translateY(12px) scale(.995);
+      transition:
+        opacity .5s ease,
+        transform .5s cubic-bezier(.2,.9,.22,1),
+        background .25s ease,
+        box-shadow .25s ease,
+        color .25s ease;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.55) inset;
+      backdrop-filter: blur(2px);
+      will-change:transform,opacity;
+    }
+
+    .btn:hover{
+      background: rgba(255,255,255,0.9);
       color: #000;
-      transform: scale(1.05);
+      transform:translateY(0) scale(1.03);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 28px rgba(255,255,255,0.06);
     }
 
-    footer {
-      padding: 2rem;
-      color: #888;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
+    /* footer */
+    footer{
+      margin-top:60px;
+      padding:28px 12px;
+      color:#9b9b9b;
+      font-size:0.9rem;
+      letter-spacing:1px;
+      opacity:0;
+      transform:translateY(12px);
+      transition:opacity .7s ease, transform .7s ease;
     }
 
-    footer span {
-      color: #f5f5f5;
-      font-weight: bold;
-    }
+    footer span{ color:#f5f5f5; font-weight:600; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    /* Visible states (added by JS) */
+    .in-view{ opacity:1; transform:translateY(0); }
 
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.8rem;
-      }
-      .rules {
-        padding: 3rem 1rem;
-      }
+    .btn.in-view{ opacity:1; transform:translateY(0) scale(1); }
+
+    /* small screens */
+    @media (max-width:720px){
+      .hero-title{ font-size:2.4rem; letter-spacing:3px; }
+      .hero-sub{ font-size:1rem; padding:0 12px; }
+      .rules{ padding:28px 18px; font-size:1rem; }
+      .btn{ padding:10px 18px; font-size:0.9rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background video -->
+  <!-- Video background (kept exactly) -->
   <video class="video-bg" autoplay muted loop playsinline>
-    <source src="https://res.cloudinary.com/ds9bldncb/video/upload/v1761910253/ssstik.io__shotbyfaces_1761828446276_lkfsas.mp4" type="video/mp4" />
-    <!-- Fallback text if video not supported -->
-    Your browser does not support videos.
+    <source src="https://res.cloudinary.com/ds9bldncb/video/upload/v1761910253/ssstik.io__shotbyfaces_1761828446276_lkfsas.mp4" type="video/mp4">
+    Your browser does not support the video tag.
   </video>
 
-  <header>
-    <h1>NEGM SECRET CLUB</h1>
-    <p>Where silence speaks louder than noise.</p>
-  </header>
+  <!-- Subtle moving overlay + vignette -->
+  <div class="bg-overlay" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
 
-  <section class="rules">
-    <h2>Rules of the Club</h2>
-    <p>
-      1. Stay unseen.<br>
-      2. Move fast, stay sharp.<br>
-      3. Respect the code.<br>
-      4. Win quietly.<br>
-      5. The game begins when you say so.
-    </p>
-    <div class="apply">
-      <a href="mailto:negmsecretclub@gmail.com">
-        <button>Apply Now</button>
-      </a>
-    </div>
-  </section>
+  <div class="wrap">
+    <header>
+      <h1 class="hero-title">NEGM SECRET CLUB</h1>
+      <p class="hero-sub">Where silence speaks louder than noise — an invite-only sequence for those who move with purpose.</p>
+    </header>
 
-  <footer>
-    Special Custom — Designed by <span>NEGM</span>
-  </footer>
+    <section class="rules" id="rules">
+      <h2>Rules of the Club</h2>
+      <p>
+        1. Stay unseen.<br>
+        2. Move fast, stay sharp.<br>
+        3. Respect the code.<br>
+        4. Win quietly.<br>
+        5. The game begins when you say so.
+      </p>
 
+      <div class="buttons" id="buttons">
+        <a href="#" onclick="location.href='mailto:negmsecretclub@gmail.com'" aria-label="Apply now">
+          <button class="btn" id="btn-apply">Apply Now</button>
+        </a>
+        <a href="mailto:negmsecretclub@gmail.com" aria-label="Email">
+          <button class="btn" id="btn-email">Email Us</button>
+        </a>
+        <a href="https://www.instagram.com/negmclub" target="_blank" rel="noopener" aria-label="Instagram">
+          <button class="btn" id="btn-ig">DM on Instagram</button>
+        </a>
+      </div>
+    </section>
+
+    <footer id="site-footer">
+      Special Custom — Designed by <span>NEGM</span>
+    </footer>
+  </div>
+
+  <script>
+    // Immediately reveal hero on load (smooth)
+    document.addEventListener('DOMContentLoaded', () => {
+      // Hero entrance
+      const title = document.querySelector('.hero-title');
+      const sub = document.querySelector('.hero-sub');
+
+      // Small stagger for hero
+      requestAnimationFrame(() => {
+        title.style.opacity = '1';
+        title.style.transform = 'translateY(0)';
+        sub.style.opacity = '1';
+        sub.style.transform = 'translateY(0)';
+      });
+
+      // IntersectionObserver for rules and footer
+      const options = { root: null, rootMargin: '0px', threshold: 0.12 };
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, options);
+
+      const rulesSection = document.getElementById('rules');
+      const footer = document.getElementById('site-footer');
+
+      // set initial transition delay slightly for cinematic feel
+      rulesSection.style.transitionDelay = '0.06s';
+      footer.style.transitionDelay = '0.06s';
+
+      observer.observe(rulesSection);
+      observer.observe(footer);
+
+      // Buttons: reveal one-by-one when rules come into view
+      const buttonsWrap = document.getElementById('buttons');
+      const buttons = Array.from(buttonsWrap.querySelectorAll('.btn'));
+
+      // When rules are observed, start the sequential reveal
+      const btnRevealObserver = new IntersectionObserver((entries, obs2) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            // reveal rules container visually (so btns sequence feels linked)
+            rulesSection.classList.add('in-view');
+
+            // sequential reveal with tasteful timing
+            buttons.forEach((btn, i) => {
+              setTimeout(() => {
+                btn.classList.add('in-view');
+              }, 280 + i * 220); // 280ms base then 220ms between buttons
+            });
+
+            // reveal footer slightly later
+            setTimeout(() => {
+              footer.classList.add('in-view');
+            }, 850);
+
+            obs2.unobserve(e.target);
+          }
+        });
+      }, { root:null, threshold: 0.18 });
+
+      btnRevealObserver.observe(rulesSection);
+
+      // Improve perceived performance: pause overlay animation if tab inactive
+      document.addEventListener('visibilitychange', () => {
+        const overlay = document.querySelector('.bg-overlay');
+        if (document.hidden) overlay.style.animationPlayState = 'paused';
+        else overlay.style.animationPlayState = 'running';
+      });
+    });
+
+    // Small resizing tweak to keep video centered on odd aspect ratios
+    window.addEventListener('resize', () => {
+      const v = document.querySelector('.video-bg');
+      if (!v) return;
+      // tiny subtle scale boost on narrow screens
+      if (window.innerWidth <= 720) v.style.transform = 'scale(1.05)';
+      else v.style.transform = 'scale(1.02)';
+    });
+  </script>
 </body>
 </html>
