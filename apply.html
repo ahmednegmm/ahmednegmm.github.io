@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply — NEGM SECRET CLUB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cutive Mono', monospace;
+      background: radial-gradient(circle at top left, #0a0a0a 0%, #000 80%);
+      color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .form-container {
+      width: 90%;
+      max-width: 500px;
+      padding: 40px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid #222;
+      border-radius: 8px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      letter-spacing: 3px;
+      margin-bottom: 2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    input {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #555;
+      color: #f5f5f5;
+      font-size: 1rem;
+      padding: 0.5rem;
+      outline: none;
+      transition: all 0.3s ease;
+      font-family: 'Cutive Mono', monospace;
+    }
+
+    input:focus {
+      border-bottom: 1px solid #fff;
+    }
+
+    button {
+      background: none;
+      border: 1px solid #f5f5f5;
+      color: #f5f5f5;
+      padding: 1rem;
+      font-family: 'Playfair Display', serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      border-radius: 40px;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #f5f5f5;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    a.back {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #888;
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+
+    a.back:hover {
+      color: #fff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>Join the Club</h1>
+    <form action="mailto:negmsecretclub@gmail.com" method="post" enctype="text/plain">
+      <input type="text" name="Name" placeholder="Full Name" required />
+      <input type="number" name="Age" placeholder="Age" required />
+      <input type="tel" name="Phone" placeholder="Phone Number" required />
+      <input type="email" name="Email" placeholder="Email" required />
+      <input type="text" name="Instagram" placeholder="Instagram Handle" required />
+      <button type="submit">Submit Application</button>
+    </form>
+    <a href="index-3.html" class="back">← Back to Main Page</a>
+  </div>
+
+</body>
+</html>
