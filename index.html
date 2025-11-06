@@ -1,84 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>NEGM SECRET CLUB</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg:#000;
-      --accent:#f5f5f5;
-      --muted:#bbb;
-      --success:#4ade80;
-      --danger:#ff6b6b;
-    }
-    *{box-sizing:border-box}
-    body {
-      margin:0;
-      font-family:'Cutive Mono',monospace;
-      background:#000;
-      color:var(--accent);
-      text-align:center;
-      overflow-x:hidden;
-    }
-    video.bg {
-      position:fixed;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      z-index:-2;
-      filter:brightness(40%);
-    }
-    header {padding:4rem 1rem 2rem;}
-    h1 {
-      font-family:'Playfair Display',serif;
-      font-size:3rem;
-      text-transform:uppercase;
-      letter-spacing:4px;
-    }
-    .card {
-      max-width:650px;
-      margin:2rem auto;
-      background:rgba(255,255,255,0.05);
-      padding:2rem;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,0.1);
-      box-shadow:0 0 30px rgba(0,0,0,0.5);
-    }
-    .btn {
-      display:inline-block;
-      padding:0.8rem 1.5rem;
-      margin:0.4rem;
-      border-radius:50px;
-      border:1px solid var(--accent);
-      background:transparent;
-      color:var(--accent);
-      text-transform:uppercase;
-      font-family:'Playfair Display',serif;
-      letter-spacing:1px;
-      cursor:pointer;
-      transition:all .2s ease;
-    }
-    .btn.primary {background:var(--accent); color:#000;}
-    .status {margin-top:1rem;}
-    .status.success{color:var(--success)}
-    .status.fail{color:var(--danger)}
-    form {text-align:left;margin-top:1.5rem;}
-    label{display:block;margin-top:0.6rem;font-size:0.9rem;color:var(--muted);}
-    input{
-      width:100%;
-      padding:0.7rem 0.8rem;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,0.1);
-      background:transparent;
-      color:var(--accent);
-      outline:none;
-      font-family:inherit;
-    }
-    footer{padding:2rem 0;font-size:0.85rem;color:var(--muted)}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NEGM SECRET CLUB</title>
+<link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000;
+    --accent:#fff;
+    --muted:#bbb;
+    --success:#4ade80;
+    --danger:#ff6b6b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:'Cutive Mono',monospace;
+    background:var(--bg);
+    color:var(--accent);
+    text-align:center;
+    overflow-x:hidden;
+  }
+  video.bg{
+    position:fixed; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    z-index:-2;
+    filter:brightness(35%);
+  }
+  header{padding:4rem 1rem 1rem;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;
+    text-transform:uppercase;
+    letter-spacing:4px;
+  }
+  .card{
+    max-width:700px;
+    margin:2rem auto;
+    background:rgba(255,255,255,0.05);
+    padding:2rem;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.1);
+    box-shadow:0 0 40px rgba(0,0,0,0.6);
+    backdrop-filter:blur(6px);
+  }
+  .btn{
+    display:inline-block;
+    padding:0.9rem 1.6rem;
+    border-radius:50px;
+    border:1px solid rgba(255,255,255,0.2);
+    background:transparent;
+    color:var(--accent);
+    font-family:'Playfair Display',serif;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:all .25s ease;
+  }
+  .btn.scan{
+    box-shadow:0 0 20px rgba(255,255,255,0.15);
+  }
+  .btn.scan:hover{
+    box-shadow:0 0 30px rgba(255,255,255,0.4);
+    transform:scale(1.04);
+  }
+  .btn.primary{
+    background:var(--accent);
+    color:#000;
+    box-shadow:0 4px 20px rgba(255,255,255,0.2);
+  }
+  .status{margin-top:1rem;font-weight:bold;}
+  .status.success{color:var(--success);}
+  .status.fail{color:var(--danger);}
+  form{text-align:left;margin-top:1rem;}
+  label{display:block;margin-top:0.6rem;font-size:0.9rem;color:var(--muted);}
+  input{
+    width:100%;
+    padding:0.7rem 0.9rem;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.15);
+    background:transparent;
+    color:var(--accent);
+    font-family:inherit;
+    outline:none;
+  }
+  footer{padding:2rem 0;color:var(--muted);font-size:0.9rem;}
+  /* instagram button */
+  .ig-follow{
+    position:fixed;
+    right:20px; bottom:20px;
+    display:flex; align-items:center; gap:10px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:0.6rem 1rem;
+    border-radius:999px;
+    box-shadow:0 0 20px rgba(255,255,255,0.2);
+  }
+  .ig-follow a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .ig-follow svg{
+    width:20px;height:20px;
+    stroke:white;
+  }
+</style>
 </head>
 <body>
   <video class="bg" autoplay muted loop playsinline>
@@ -87,26 +118,27 @@
 
   <header>
     <h1>NEGM SECRET CLUB</h1>
-    <p>Where silence speaks louder than noise.</p>
+    <p>Scan. Prove. Join.</p>
   </header>
 
   <main class="card">
-    <h2>Join the Club</h2>
-    <p>Scan the QR, enter the password, and prove you're one of us.</p>
-    <div id="step-scan">
-      <button class="btn" id="scan-btn">Scan QR</button>
+    <h2>Exclusive Entry</h2>
+    <p>Find the QR sticker, scan it, enter the password and fill the form.</p>
+
+    <div id="scan-step">
+      <button class="btn scan" id="upload-qr">Scan QR</button>
       <input type="file" id="file-input" accept="image/*" style="display:none">
       <div id="scan-status" class="status"></div>
     </div>
 
-    <div id="step-password" style="display:none">
+    <div id="password-step" style="display:none">
       <label for="password">Enter Password:</label>
       <input type="password" id="password" placeholder="Password">
       <button class="btn primary" id="check-password">Submit</button>
       <div id="pass-status" class="status"></div>
     </div>
 
-    <div id="step-form" style="display:none">
+    <div id="form-step" style="display:none">
       <form id="applyForm">
         <label>Name</label>
         <input type="text" id="name" required>
@@ -114,8 +146,10 @@
         <input type="number" id="age" required>
         <label>Email</label>
         <input type="email" id="email" required>
+        <label>Phone Number</label>
+        <input type="tel" id="phone" required placeholder="+20...">
         <label>Instagram</label>
-        <input type="text" id="instagram" required>
+        <input type="text" id="instagram" placeholder="@username">
         <p style="font-size:0.8rem;color:var(--muted);margin-top:0.8rem;">
           By submitting this form, you consent to your data being stored for NEGM Secret Club membership purposes.
         </p>
@@ -125,101 +159,113 @@
     </div>
   </main>
 
-  <footer>Designed by NEGM</footer>
+  <div class="ig-follow">
+    <a href="https://instagram.com/negmsecret" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+        <path d="M16 11.37a4 4 0 1 1-7.999.001A4 4 0 0 1 16 11.37z"></path>
+        <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+      </svg>
+      Follow @negmsecret
+    </a>
+  </div>
+
+  <footer>© 2025 NEGM SECRET CLUB</footer>
 
   <canvas id="canvas" hidden></canvas>
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
   <script>
     const SCAN_URL = "https://qrfy.io/MPfKSveITk";
     const PASSWORD = "whoisnegm";
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxtF3V-GneWmKQWY2cAneYQ3Q564xeCgjlRZxP625rNUFYCRsboGI7zCZxa85mtg96w/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby0bqD-64-OABX_qXE6fySFRcaOXPae0xYkGHYDxLmBwu6jOedrdz30ZZkNssH1xXze/exec";
 
-    const scanBtn = document.getElementById('scan-btn');
-    const scanStatus = document.getElementById('scan-status');
+    const uploadBtn = document.getElementById('upload-qr');
     const fileInput = document.getElementById('file-input');
-    const stepPassword = document.getElementById('step-password');
+    const scanStatus = document.getElementById('scan-status');
+    const passStep = document.getElementById('password-step');
     const passInput = document.getElementById('password');
     const passBtn = document.getElementById('check-password');
     const passStatus = document.getElementById('pass-status');
-    const stepForm = document.getElementById('step-form');
+    const formStep = document.getElementById('form-step');
     const form = document.getElementById('applyForm');
     const formStatus = document.getElementById('form-status');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
-    scanBtn.addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', handleFile);
+    uploadBtn.addEventListener('click',()=>fileInput.click());
+    fileInput.addEventListener('change',handleFile);
 
     function handleFile(e){
       const file = e.target.files[0];
       if(!file) return;
       const img = new Image();
       const reader = new FileReader();
-      reader.onload = function(ev){
-        img.onload = function(){
+      reader.onload = ev=>{
+        img.onload = ()=>{
           canvas.width = img.width;
           canvas.height = img.height;
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
-          const code = jsQR(imgData.data, imgData.width, imgData.height);
+          ctx.drawImage(img,0,0);
+          const imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+          const code = jsQR(imageData.data,imageData.width,imageData.height);
           if(code){
             if(code.data.trim() === SCAN_URL){
-              scanStatus.textContent = "QR verified ✅";
-              scanStatus.className = "status success";
-              document.getElementById('step-scan').style.display = 'none';
-              stepPassword.style.display = 'block';
+              scanStatus.textContent="QR verified ✅";
+              scanStatus.className="status success";
+              document.getElementById('scan-step').style.display='none';
+              passStep.style.display='block';
             } else {
-              scanStatus.textContent = "Invalid QR ❌";
-              scanStatus.className = "status fail";
+              scanStatus.textContent="Invalid QR ❌";
+              scanStatus.className="status fail";
             }
           } else {
-            scanStatus.textContent = "No QR detected.";
+            scanStatus.textContent="No QR detected ❌";
           }
-        }
+        };
         img.src = ev.target.result;
       };
       reader.readAsDataURL(file);
     }
 
-    passBtn.addEventListener('click', () => {
-      if(passInput.value.trim() === PASSWORD){
-        passStatus.textContent = "Access granted ✅";
-        passStatus.className = "status success";
-        stepPassword.style.display = 'none';
-        stepForm.style.display = 'block';
+    passBtn.addEventListener('click',()=>{
+      if(passInput.value.trim()===PASSWORD){
+        passStatus.textContent="Access granted ✅";
+        passStatus.className="status success";
+        passStep.style.display='none';
+        formStep.style.display='block';
       } else {
-        passStatus.textContent = "Wrong password ❌";
-        passStatus.className = "status fail";
+        passStatus.textContent="Wrong password ❌";
+        passStatus.className="status fail";
       }
     });
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit',async(e)=>{
       e.preventDefault();
-      formStatus.textContent = "Submitting...";
-      const payload = {
-        name: document.getElementById('name').value,
-        age: document.getElementById('age').value,
-        email: document.getElementById('email').value,
-        instagram: document.getElementById('instagram').value,
-        qrToken: SCAN_URL
+      formStatus.textContent="Submitting...";
+      const payload={
+        name:document.getElementById('name').value,
+        age:document.getElementById('age').value,
+        email:document.getElementById('email').value,
+        phone:document.getElementById('phone').value,
+        instagram:document.getElementById('instagram').value,
+        qrToken:SCAN_URL
       };
       try{
-        const res = await fetch(SCRIPT_URL, {
+        const res=await fetch(SCRIPT_URL,{
           method:"POST",
-          body: JSON.stringify(payload),
+          body:JSON.stringify(payload),
           headers:{"Content-Type":"application/json"}
         });
         if(res.ok){
-          formStatus.textContent = "Form submitted successfully ✅";
-          formStatus.className = "status success";
+          formStatus.textContent="Application submitted successfully ✅";
+          formStatus.className="status success";
           form.reset();
         } else {
-          formStatus.textContent = "Error submitting form.";
-          formStatus.className = "status fail";
+          formStatus.textContent="Error submitting form ❌";
+          formStatus.className="status fail";
         }
       }catch(err){
-        formStatus.textContent = "Network error.";
-        formStatus.className = "status fail";
+        formStatus.textContent="Network error ❌";
+        formStatus.className="status fail";
       }
     });
   </script>
